@@ -1,5 +1,6 @@
 from behave import given, when, then
 from selenium import webdriver
+import pyautogui
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -12,11 +13,11 @@ def step_impl(context):
     context.driver = webdriver.Chrome()
     context.driver.get('https://www.youtube.com')
 
-    # Aguarde até que o elemento seja visível
+    
     button_locator = (By.XPATH, '//*[@id="buttons"]/ytd-button-renderer/yt-button-shape/a')
     WebDriverWait(context.driver, 10).until(EC.visibility_of_element_located(button_locator))
 
-    # Clique no botão de login
+    
     login_button = context.driver.find_element(*button_locator)
     login_button.click()
 
@@ -43,7 +44,6 @@ def step_impl(context, senha):
 
     next_button = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="passwordNext"]/div/button')))
     next_button.click()
-
     sleep(2)
 
 @when('eu pesquiso por "{termo_pesquisa}"')
@@ -52,15 +52,12 @@ def step_impl(context, termo_pesquisa):
     search_input.clear()
     search_input.send_keys(termo_pesquisa)
     search_input.send_keys(Keys.RETURN)
-
     sleep(2)
 
 @when('eu clico e reproduzo o primeiro vídeo')
 def step_impl(context):
     video_link = context.driver.find_element(By.CSS_SELECTOR, '#contents ytd-video-renderer a#thumbnail')
     video_link.click()
-
-    # Aguarda o vídeo carregar e reproduzir
     sleep(5)
 
 @when('eu clico no botão de Inscrever-se')
@@ -101,3 +98,67 @@ def step_impl(context):
     sleep(2)
     videos = context.driver.find_elements(By.CSS_SELECTOR, '#contents ytd-playlist-video-renderer')
     assert len(videos) >= 1, "O vídeo não foi salvo em 'Assistir mais tarde'"
+
+@when('eu clico no botão de upload de vídeo')
+def step_impl(context):
+    upload_button = context.driver.find_element(By.XPATH, '//*[@id="button"]/a')
+    upload_button.click()
+    sleep(2)
+
+    send_video = context.driver.find_element(By.XPATH, '//*[@id="items"]/ytd-compact-link-renderer[1]')
+    send_video.click()
+    sleep(2)
+
+@when('eu escolho o vídeo "{caminho_video}" para enviar')
+def step_impl(context, caminho_video):
+    file_input = context.driver.find_element(By.ID, 'select-files-button')
+    file_input.send_keys(caminho_video)
+    sleep(2)
+
+    # Uso do pyautogui para interagir com o explorador de arquivos
+    pyautogui.write(caminho_video)  
+    pyautogui.press('enter')  
+    sleep(5)  
+
+@when('eu insiro o título do vídeo "{titulo}"')
+def step_impl(context, titulo):
+    title_input = context.driver.find_element(By.ID, 'textbox')
+    title_input.clear()
+    title_input.send_keys(titulo)
+    sleep(2)
+
+    public_button = context.driver.find_element(By.ID, 'offRadio')
+    public_button.click()
+    sleep(2)
+
+@when('eu clico no botão de próximo')
+def step_impl(context):
+    next_button = context.driver.find_element(By.ID, 'next-button')
+    next_button.click()
+    sleep(2)
+
+    next_button = context.driver.find_element(By.ID, 'next-button')
+    next_button.click()
+    sleep(2)
+
+    next_button = context.driver.find_element(By.ID, 'next-button')
+    next_button.click()
+    sleep(2)
+
+    private_button = context.driver.find_element(By.XPATH, '//*[@id="private-radio-button"]') 
+    private_button.click()
+    sleep(2)
+
+    
+
+@when('eu clico no botão de publicar')
+def step_impl(context):
+    publish_button = context.driver.find_element(By.ID, 'done-button')
+    publish_button.click()
+    sleep(2)
+    
+@when('eu sou redirecionado para a página de upload após a publicação')
+def step_impl(context):
+    expected_url = 'https://studio.youtube.com/channel/UC7ZsJJ_fOWIQod9wEhqNyLg/videos/upload?filter=%5B%5D&sort=%7B%22columnType%22%3A%22date%22%2C%22sortOrder%22%3A%22DESCENDING%22%7D'
+    assert context.driver.current_url == expected_url, "A página não foi redirecionada corretamente"
+    sleep(10)
