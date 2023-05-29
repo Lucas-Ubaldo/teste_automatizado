@@ -5,5 +5,7 @@ Feature: Acoes no YouTube
     And eu insiro minha senha "QS_123456789"
     And eu pesquiso por "corinthians"
     When eu clico e reproduzo o primeiro vídeo
+    When eu clico no botão de Inscrever-se
+    When eu clico no botão de Gostei
     Then eu devo ver o vídeo sendo reproduzido
     

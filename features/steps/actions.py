@@ -63,6 +63,18 @@ def step_impl(context):
     # Aguarda o vídeo carregar e reproduzir
     sleep(5)
 
+@when('eu clico no botão de Inscrever-se')
+def step_impl(context):
+    subscribe_button = context.driver.find_element(By.CSS_SELECTOR, '#subscribe-button')
+    subscribe_button.click()
+    sleep(2)
+
+@when('eu clico no botão de Gostei')
+def step_impl(context):
+    like_button = context.driver.find_element(By.ID, 'segmented-like-button')
+    like_button.click()
+    sleep(2)
+
 @then('eu devo ver o vídeo sendo reproduzido')
 def step_impl(context):
     sleep(5)
