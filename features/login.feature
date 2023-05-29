@@ -1,5 +1,4 @@
 Feature: Login no YouTube
-
   Scenario: Login bem-sucedido
     Given que estou na página de login do YouTube
     When eu insiro meu email "teste.automatizadoQS@gmail.com"
