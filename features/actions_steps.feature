@@ -1,8 +1,8 @@
 Feature: Acoes no YouTube
   Scenario: Acoes bem-sucedidas
     Given que estou na página de login do YouTube
-    When eu insiro meu email "teste.automatizacaoQS@gmail.com"
-    And eu insiro minha senha "QS_123456789"
+    When eu insiro meu email "lzzk1910@gmail.com"
+    And eu insiro minha senha "corinthianszl07"
     And eu pesquiso por "corinthians"
     When eu clico e reproduzo o primeiro vídeo
     When eu clico no botão de Inscrever-se
@@ -13,8 +13,8 @@ Feature: Acoes no YouTube
 
   Scenario: Clicar no botão de upload de vídeo
     Given que estou na página de login do YouTube
-    When eu insiro meu email "teste.automatizacaoQS1@gmail.com"
-    And eu insiro minha senha "QS_123456789"
+    When eu insiro meu email "lzzk1910@gmail.com"
+    And eu insiro minha senha "corinthianszl07"
     And eu clico no botão de upload de vídeo 
     When eu escolho o vídeo "C:\Users\LUCAS UBALDO\Documents\teste-automatizado\video\teste.mp4" para enviar
     And eu insiro o título do vídeo "Teste automatizado"

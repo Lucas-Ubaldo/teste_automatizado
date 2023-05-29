@@ -159,6 +159,6 @@ def step_impl(context):
     
 @when('eu sou redirecionado para a página de upload após a publicação')
 def step_impl(context):
-    expected_url = 'https://studio.youtube.com/channel/UC7ZsJJ_fOWIQod9wEhqNyLg/videos/upload?filter=%5B%5D&sort=%7B%22columnType%22%3A%22date%22%2C%22sortOrder%22%3A%22DESCENDING%22%7D'
+    expected_url = 'https://studio.youtube.com/channel/UCLY2hOUiEuC-1zRWt5GqiJg/videos/upload?filter=%5B%5D&sort=%7B%22columnType%22%3A%22date%22%2C%22sortOrder%22%3A%22DESCENDING%22%7D'
     assert context.driver.current_url == expected_url, "A página não foi redirecionada corretamente"
     sleep(10)
