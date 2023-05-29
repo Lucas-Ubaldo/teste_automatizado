@@ -55,7 +55,15 @@ def step_impl(context, termo_pesquisa):
 
     sleep(2)
 
-@then('eu devo ver os resultados da pesquisa')
+@when('eu clico e reproduzo o primeiro vídeo')
+def step_impl(context):
+    video_link = context.driver.find_element(By.CSS_SELECTOR, '#contents ytd-video-renderer a#thumbnail')
+    video_link.click()
+
+    # Aguarda o vídeo carregar e reproduzir
+    sleep(5)
+
+@then('eu devo ver o vídeo sendo reproduzido')
 def step_impl(context):
     sleep(5)
     search_results = context.driver.find_elements(By.CSS_SELECTOR, '#contents ytd-video-renderer')
