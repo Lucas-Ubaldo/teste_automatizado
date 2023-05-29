@@ -7,5 +7,7 @@ Feature: Acoes no YouTube
     When eu clico e reproduzo o primeiro vídeo
     When eu clico no botão de Inscrever-se
     When eu clico no botão de Gostei
+    When eu clico no botão de Salvar em "Assistir mais tarde"
     Then eu devo ver o vídeo sendo reproduzido
+    And o vídeo deve ser salvo em "Assistir mais tarde"
     

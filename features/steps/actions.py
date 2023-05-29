@@ -75,8 +75,29 @@ def step_impl(context):
     like_button.click()
     sleep(2)
 
+@when('eu clico no botão de Salvar em "Assistir mais tarde"')
+def step_impl(context):
+    options_button = context.driver.find_element(By.XPATH, '//*[@id="button-shape"]/button')
+    options_button.click()
+    sleep(2)
+
+    save_button = context.driver.find_element(By.XPATH, '//*[@id="items"]/ytd-menu-service-item-renderer[2]')
+    save_button.click()
+    sleep(2)
+
+    save_to = context.driver.find_element(By.ID, 'checkboxContainer')
+    save_to.click()
+    sleep(2)
+
 @then('eu devo ver o vídeo sendo reproduzido')
 def step_impl(context):
     sleep(5)
     search_results = context.driver.find_elements(By.CSS_SELECTOR, '#contents ytd-video-renderer')
     assert len(search_results) >= 1, "Nenhum resultado de pesquisa encontrado"
+
+@then('o vídeo deve ser salvo em "Assistir mais tarde"')
+def step_impl(context):
+    context.driver.get('https://www.youtube.com/playlist?list=WL')
+    sleep(2)
+    videos = context.driver.find_elements(By.CSS_SELECTOR, '#contents ytd-playlist-video-renderer')
+    assert len(videos) >= 1, "O vídeo não foi salvo em 'Assistir mais tarde'"
