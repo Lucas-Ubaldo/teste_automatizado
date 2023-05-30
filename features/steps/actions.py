@@ -12,12 +12,8 @@ from time import sleep
 def step_impl(context):
     context.driver = webdriver.Chrome()
     context.driver.get('https://www.youtube.com')
-
-    
     button_locator = (By.XPATH, '//*[@id="buttons"]/ytd-button-renderer/yt-button-shape/a')
     WebDriverWait(context.driver, 10).until(EC.visibility_of_element_located(button_locator))
-
-    
     login_button = context.driver.find_element(*button_locator)
     login_button.click()
 
@@ -25,23 +21,19 @@ def step_impl(context):
 def step_impl(context, email):
     email_input = context.driver.find_element(By.ID, 'identifierId')
     email_input.send_keys(email)
-
     next_button = context.driver.find_element(By.XPATH, '//*[@id="identifierNext"]/div/button')
     next_button.click()
-
     sleep(2)
 
 @when('eu insiro minha senha "{senha}"')
 def step_impl(context, senha):
     wait = WebDriverWait(context.driver, 10)
     senha_input = wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, 'input[type="password"]')))
-    
     if senha_input.is_displayed() and senha_input.is_enabled():
         senha_input.clear()
         senha_input.send_keys(senha)
     else:
         raise Exception("Campo de senha não está visível ou habilitado.")
-
     next_button = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="passwordNext"]/div/button')))
     next_button.click()
     sleep(2)
@@ -77,11 +69,9 @@ def step_impl(context):
     options_button = context.driver.find_element(By.XPATH, '//*[@id="button-shape"]/button')
     options_button.click()
     sleep(2)
-
     save_button = context.driver.find_element(By.XPATH, '//*[@id="items"]/ytd-menu-service-item-renderer[2]')
     save_button.click()
     sleep(2)
-
     save_to = context.driver.find_element(By.ID, 'checkboxContainer')
     save_to.click()
     sleep(2)
@@ -104,7 +94,6 @@ def step_impl(context):
     upload_button = context.driver.find_element(By.XPATH, '//*[@id="button"]/a')
     upload_button.click()
     sleep(2)
-
     send_video = context.driver.find_element(By.XPATH, '//*[@id="items"]/ytd-compact-link-renderer[1]')
     send_video.click()
     sleep(2)
@@ -114,7 +103,6 @@ def step_impl(context, caminho_video):
     file_input = context.driver.find_element(By.ID, 'select-files-button')
     file_input.send_keys(caminho_video)
     sleep(2)
-
     # Uso do pyautogui para interagir com o explorador de arquivos
     pyautogui.write(caminho_video)  
     pyautogui.press('enter')  
@@ -126,7 +114,6 @@ def step_impl(context, titulo):
     title_input.clear()
     title_input.send_keys(titulo)
     sleep(2)
-
     public_button = context.driver.find_element(By.ID, 'offRadio')
     public_button.click()
     sleep(2)
@@ -136,20 +123,15 @@ def step_impl(context):
     next_button = context.driver.find_element(By.ID, 'next-button')
     next_button.click()
     sleep(2)
-
     next_button = context.driver.find_element(By.ID, 'next-button')
     next_button.click()
     sleep(2)
-
     next_button = context.driver.find_element(By.ID, 'next-button')
     next_button.click()
     sleep(2)
-
     private_button = context.driver.find_element(By.XPATH, '//*[@id="private-radio-button"]') 
     private_button.click()
     sleep(2)
-
-    
 
 @when('eu clico no botão de publicar')
 def step_impl(context):
